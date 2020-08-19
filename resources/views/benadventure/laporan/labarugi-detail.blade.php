@@ -1,0 +1,205 @@
+@extends('layouts.app')
+
+@section('content')
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+ <!-- Brand Logo -->
+  <a href="/benadventure" class="brand-link">
+    <img src="{{asset('assets/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">Ketenger Adventure</span>
+  </a>
+
+ <!-- Sidebar -->
+  <div class="container-fluid main">
+      <div class="sidebar">
+
+          <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+            @role('benadventure')
+            <li class="nav-header">LAPORAN KEGIATAN</li>
+             <li class="nav-item">
+              <a href="{{ url('/kelola-jenistransaksi') }}" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+               <p>Kelola Jenis Transaksi</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/laporan-kegiatan') }}" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+               <p>Kelola Laporan Kegiatan</p>
+              </a>
+            </li>
+            <li class="nav-header">LAPORAN TATA BUKU</li>
+             <li class="nav-item">
+              <a href="{{ url('akun') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Chart of Account</p>
+              </a>
+             </li>
+             <li class="nav-item">
+               <a href="{{ url('jurnal') }}" class="nav-link">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Jurnal</p>
+               </a>
+              </li>
+              <li class="nav-item">
+               <a href="{{ url('buku-besar') }}" class="nav-link">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Buku Besar</p>
+               </a>
+              </li>
+              <li class="nav-item">
+               <a href="{{ url('neraca') }}" class="nav-link">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Neraca Saldo</p>
+               </a>
+              </li>
+              <li class="nav-item">
+               <a href="{{ url('nssd') }}" class="nav-link">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>NSSD</p>
+               </a>
+              </li>
+              <li class="nav-item">
+               <a href="{{ url('labarugi') }}" class="nav-link active">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Laba Rugi</p>
+               </a>
+              </li>
+              <li class="nav-item">
+               <a href="{{ url('neraca-laporan') }}" class="nav-link">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Neraca Laporan</p>
+               </a>
+              </li>
+              @endrole
+              @role('Manajer')
+              <li class="nav-header">DIVISI WISATA HARIAN</li>
+             <li class="nav-item">
+              <a href="{{ url('/transaksi') }}" class="nav-link">
+                <i class="fas fa-chart-line nav-icon"></i>
+                 <p>Data Transaksi Harian</p>
+                </a>
+             </li>
+              <li class="nav-item">
+                <a href="{{ url('/dokumen-laporan') }}" class="nav-link">
+                 <i class="fas fa-file-invoice nav-icon"></i>
+                <p>Dokumen Lap.Keuangan</p>
+               </a>
+              </li>
+              <li class="nav-header">DIVISI ADVENTURE</li>
+             <li class="nav-item">
+              <a href="{{ url('/laporan-kegiatan') }}" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+               <p>Data Laporan Kegiatan</p>
+              </a>
+            </li>
+              <li class="nav-item">
+               <a href="{{ url('labarugi') }}" class="nav-link active">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Laporan Laba Rugi</p>
+               </a>
+              </li>
+              <li class="nav-item">
+               <a href="{{ url('neraca-laporan') }}" class="nav-link">
+                 <i class="far fa-circle nav-icon"></i>
+                 <p>Neraca Laporan</p>
+               </a>
+              </li>
+              @endrole
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+      </div>
+        <!-- /.sidebar -->
+  </aside>
+
+<div class="content-wrapper" style="min-height: 1196.05px;">
+ <section class="content">
+   <div class="row">
+     <div class="col-md-12">
+       <div class="card">
+        <div class="panel panel-default">
+          <div class="card-header">
+            Detail Laporan Laba Rugi 
+            </div>
+             <div class="card-body">
+                 <div class="panel-body">
+                    <div class="col-md-8">
+                      <h6 class="text-center">LAPORAN LABA RUGI</h6>
+                        <h6 class="text-center">Periode : <strong>{{ $periode }}</strong> </h6>
+                        <h6><strong>Pendapatan</strong></h6>
+                        <table class="table table-hover table-bordered table-striped">
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Jenis Akun</th>
+                            <th class="text-center">Nama Akun</th>
+                            <th class="text-center">Nominal</th>
+                          </tr>
+                        <?php $i = 1 ?>
+                        @foreach($data_akunpendapatan as $data)
+                          <tr>
+                            <td class="text-center">{{ $i++ }}</td>
+                            <td>{{ $data->jenis_akun }}</td>
+                            <td>{{ $data->nama_akun }}</td>
+                            <td>Rp. {{ number_format($data->nominal, 0, ',', '.') }},-</td>
+                          </tr>
+                        @endforeach
+
+                        <tr>
+                          <th colspan="3" class="text-center">Total Pendapatan</th>
+                          <th>Rp. {{ number_format($total_pendapatan, 0, ',', '.') }},-</th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-8">
+                        <h6><strong>Beban - beban</strong></h6>
+                        <table class="table table-hover table-bordered table-striped">
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Jenis Akun</th>
+                            <th class="text-center">Nama Akun</th>
+                            <th class="text-center">Nominal</th>
+                          </tr>
+                        <?php $i = 1 ?>
+                        @foreach($data_akunbeban as $data)
+                          <tr>
+                            <td class="text-center">{{ $i++ }}</td>
+                            <td>{{ $data->jenis_akun }}</td>
+                            <td>{{ $data->nama_akun }}</td>
+                            <td>Rp. {{ number_format($data->nominal, 0, ',', '.') }},-</td>
+                          </tr>
+                        @endforeach
+
+                        <tr>
+                          <th colspan="3" class="text-center">Total Beban</th>
+                          <th>Rp. {{ number_format($total_beban, 0, ',', '.') }},-</th>
+                        </tr>
+                        <tr>
+                          <th colspan="3" class="text-center">TOTAL LABA</th>
+                          <th><i>Rp. {{ number_format($laba_bersih, 0, ',', '.') }},-</i></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">Terbilang</th>
+                            <th colspan="3" class="text-center">
+                            <em>{{ ucwords(terbilang($laba_bersih)) }} Rupiah</em>
+                            </th>
+                        </tr>
+                        <tr>
+                    </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           </div>
+         </div>
+     </div>
+  </section>
+</div>
+
+@endsection

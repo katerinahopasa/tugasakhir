@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePengeluaranTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('pengeluaran', function (Blueprint $table) {
+            $table->BigIncrements('id',255);
+            $table->date('tanggal');
+            $table->string('nama_pengeluaran', 255);
+            $table->bigInteger('nominal');
+            $table->string('keterangan', 255)->nullable();
+            $table->mediumText('bukti_pembayaran')->nullable(); 
+            //$table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('pengeluaran');
+    }
+}
